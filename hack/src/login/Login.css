@@ -147,3 +147,73 @@
     background-color: #000000;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.285);
 }
+
+@media (max-width: 768px) {
+  .log-nav {
+    height: 60px;
+    padding: 0 10px;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .logo-line {
+    width: 120px;
+  }
+
+  .login-page {
+    /* Adjust alignment for mobile */
+    align-items: center;
+    height: auto;
+    min-height: 90vh;
+  }
+
+  .login-card {
+    /* Make card almost full-width on mobile */
+    width: 90%; 
+    height: 400px; /* Let height grow with content */
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.553);
+  }
+
+  .names {
+    padding-top: 60px;
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 0;
+    height: auto;
+    margin-bottom: 15px;
+  }
+
+  .tab-button {
+    font-size: 1rem;
+    padding: 8px;
+  }
+
+  .log-in {
+    padding-top: 10px;
+    padding: 0 10px;
+  }
+
+  .log-in h2 {
+    font-size: 1.3rem;
+    margin-top: 10px;
+  }
+
+  .log-in form {
+    padding-top: 10px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .log-in h2 {
+    font-size: 1.2rem;
+  }
+
+  .log-in input,
+  .login-button {
+    font-size: 0.9rem;
+  }
+}
