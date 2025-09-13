@@ -171,7 +171,7 @@
 
   .login-card {
     /* Make card almost full-width on mobile */
-    width: 90%; 
+    width: 320px; 
     height: 400px; /* Let height grow with content */
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.553);
