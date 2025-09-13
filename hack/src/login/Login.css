@@ -163,16 +163,14 @@
   }
 
   .login-page {
-    /* Adjust alignment for mobile */
     align-items: center;
     height: auto;
     min-height: 90vh;
   }
 
   .login-card {
-    /* Make card almost full-width on mobile */
     width: 320px; 
-    height: 400px; /* Let height grow with content */
+    height: 400px; 
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.553);
   }
