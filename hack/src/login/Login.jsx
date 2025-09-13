@@ -32,9 +32,9 @@ export default function Login() {
 
     return (
         <div className="login">
-            <div className="log-nav">
-                <div className="logo"></div>
-                <div className="logo-line"></div>
+            <div className="log-nav1">
+                <div className="logo1"></div>
+                <div className="logo-line1"></div>
             </div>
             <div className="login-page">
                 <div className="login-card">

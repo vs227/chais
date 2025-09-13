@@ -4,7 +4,7 @@
     font-family: monospace;
 }
 
-.log-nav {
+.log-nav1 {
     height: 70px;
     background-color: rgb(251, 251, 251);
     display: flex;
@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-.logo {
+.logo1 {
     height: 100%;
     width: 100px;
     background-image: url("../resources/logo.png");
@@ -23,7 +23,7 @@
     align-items: center;
 }
 
-.logo-line {
+.logo-line1 {
     height: 100%;
     width: 160px;
     background-image: url("../resources/logo-line.png");

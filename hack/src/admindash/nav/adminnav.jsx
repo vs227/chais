@@ -25,7 +25,7 @@ export default function Adminnav() {
           <a href="#dashboard" className="admin-info-link">Dashboard</a>
           <a href="#contact" className="admin-info-link">Contact</a>
           <a href="#about" className="admin-info-link">About</a>
-          <a href="/" className="admin-logout">Logout</a>
+          <a href="/SIH" className="admin-logout">Logout</a>
         </div>
       </div>
     </div>
