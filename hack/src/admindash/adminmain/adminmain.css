@@ -15,7 +15,7 @@
 .admin-card {
     height: 550px;
     width: 99%;
-    background-color: rgb(246, 246, 246);
+    background-color: rgb(255, 255, 255);
     z-index: 100;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.575);
 }
@@ -57,4 +57,90 @@
 
 .nav-link.active::after {
     width: 100%;
+}
+
+/* addon */
+
+.content-area {
+  padding: 20px;
+  height: calc(100% - 70px);
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+.health-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.health-form h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group.full-width {
+  flex: 100%;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background: #fafafa;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 30px;
+}
+
+.submit-btn:hover {
+  background-color: #000000;
+}
+
+.placeholder {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.2rem;
+  color: #555;
 }
