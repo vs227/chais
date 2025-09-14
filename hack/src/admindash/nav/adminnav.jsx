@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./adminnav.css";
+import { Link } from "react-router-dom";
 
 export default function Adminnav() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -24,7 +25,7 @@ export default function Adminnav() {
         </div>
 
         <div className={`admin-info ${menuOpen ? "show" : ""}`}>
-          <a href="/admindash#/admindash" className="admin-info-link">Home</a>
+          <Link to="/admindash" className="admin-info-link">Home</Link>
           <button 
             onClick={() => navigate('/admindash/dashboard')} 
             className="admin-info-link"
