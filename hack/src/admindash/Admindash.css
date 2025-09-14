@@ -1,0 +1,16 @@
+.admin-dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.admin-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.admin-content {
+  flex-grow: 1;
+  overflow-y: auto;
+}

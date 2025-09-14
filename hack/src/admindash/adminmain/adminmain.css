@@ -5,20 +5,19 @@
 }
 
 .admin-main {
-  height: 95vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #f5f5f5;
   display: flex;
   justify-content: center;
   align-items: center;
+  height:100vh;
 }
 
 .admin-card {
   height: 550px;
-  width: 80%;
-  background-color: rgb(255, 255, 255);
+  width: 90%;
+  background-color: #ffffff;
   z-index: 100;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.575);
-  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -26,11 +25,12 @@
 .first-comp {
   width: 100%;
   height: 70px;
-  background-color: rgb(255, 255, 255);
+  background-color: #ffffff;
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 .nav-link {
@@ -38,7 +38,7 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
-  color: rgb(0, 0, 0);
+  color: #333333;
   font-size: 1.2rem;
   position: relative;
   padding: 5px 0;
@@ -51,7 +51,7 @@
   bottom: -2px;
   width: 0%;
   height: 2px;
-  background-color: black;
+  background-color: #000000;
   transition: width 0.3s ease;
 }
 
@@ -83,7 +83,7 @@
   text-align: center;
   margin-bottom: 10px;
   font-size: 1.5rem;
-  color: #333;
+  color: #333333;
 }
 
 .form-row {
@@ -112,10 +112,9 @@
 .form-group input,
 .form-group select {
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
   font-size: 1rem;
   background: #fafafa;
-  border-radius: 5px;
 }
 
 .form-actions {
@@ -126,17 +125,142 @@
 
 .submit-btn {
   padding: 10px 20px;
-  background-color: #333;
-  color: white;
+  background-color: #333333;
+  color: #ffffff;
   font-size: 1rem;
   border: none;
   cursor: pointer;
   transition: 0.3s;
   margin-bottom: 30px;
-  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .submit-btn:hover {
+  background-color: #000000;
+}
+
+.submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.status-message {
+  padding: 10px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.status-message.success {
+  background-color: #f0f0f0;
+  color: #333333;
+  border: 1px solid #cccccc;
+}
+
+.status-message.error {
+  background-color: #f0f0f0;
+  color: #333333;
+  border: 1px solid #cccccc;
+}
+
+.status-message.info {
+  background-color: #f0f0f0;
+  color: #333333;
+  border: 1px solid #cccccc;
+}
+
+/* Alert Messages */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.alert-warning {
+  background-color: #f0f0f0;
+  color: #333333;
+  border: 1px solid #cccccc;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333333;
+}
+
+/* File Upload Styles */
+.file-help {
+  color: #666666;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.file-errors {
+  margin-top: 10px;
+}
+
+.error-message {
+  color: #333333;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+  padding: 5px;
+  background-color: #f0f0f0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.selected-files {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.selected-files h4 {
+  margin-bottom: 10px;
+  color: #333333;
+  font-size: 1rem;
+}
+
+.file-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.file-name {
+  font-weight: 500;
+  color: #333333;
+}
+
+.file-size {
+  color: #666666;
+  font-size: 0.9rem;
+}
+
+.remove-file-btn {
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.remove-file-btn:hover {
   background-color: #000000;
 }
 
@@ -144,7 +268,128 @@
   text-align: center;
   margin-top: 50px;
   font-size: 1.2rem;
-  color: #555;
+  color: #555555;
+}
+
+/* Admin Profile Styles */
+.admin-profile {
+  padding: 20px;
+}
+
+.admin-profile h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  color: #333333;
+}
+
+.profile-info {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.profile-details {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-details h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333333;
+}
+
+.profile-details p {
+  margin-bottom: 5px;
+  color: #666666;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666666;
+}
+
+.profile-actions {
+  margin-bottom: 30px;
+}
+
+.profile-actions h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #333333;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.action-btn {
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333333;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  background: #f0f0f0;
+}
+
+.recent-activity h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  color: #333333;
+}
+
+.activity {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-item span:first-child {
+  color: #333333;
+}
+
+.activity-item span:last-child {
+  color: #666666;
+  font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {
@@ -168,5 +413,23 @@
 
   .nav-link {
     font-size: 1rem;
+  }
+
+  .profile-section {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
   }
 }

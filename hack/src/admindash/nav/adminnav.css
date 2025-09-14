@@ -6,11 +6,13 @@
 
 .log-nav {
   height: 60px;
-  background-color: rgb(251, 251, 251);
+  background-color: #f8f8f8;
   display: flex;
   align-items: center;
   justify-content: space-between; 
   padding: 0 15px;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .logo-group {
@@ -45,8 +47,12 @@
 
 .admin-info-link {
   text-decoration: none;
-  color: rgba(22, 22, 22, 0.841);
+  color: #333333;
   transition: color 0.3s ease;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .admin-info-link:hover {
@@ -55,7 +61,7 @@
 
 .admin-logout {
   text-decoration: none;
-  color: rgb(157, 0, 0);
+  color: #952121;
 }
 
 .menu-icon {
@@ -68,7 +74,7 @@
 .menu-icon span {
   width: 25px;
   height: 3px;
-  background: black;
+  background: #000000;
   transition: 0.3s ease;
 }
 
@@ -87,13 +93,14 @@
     position: absolute;
     top: 60px;
     right: 0;
-    background: rgb(251, 251, 251);
+    background: #f8f8f8;
     width: 200px;
     flex-direction: column;
     padding: 20px;
     gap: 15px;
     display: none;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
   }
 
 

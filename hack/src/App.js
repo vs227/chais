@@ -9,7 +9,7 @@ function App() {
     <HashRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/admindash" element={<Admindash />} />
+        <Route path="/admindash/*" element={<Admindash />} />
         <Route path="/userdash" element={<Userdash />} />
       </Routes>
     </HashRouter>

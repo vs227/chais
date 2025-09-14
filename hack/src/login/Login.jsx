@@ -23,6 +23,7 @@ export default function Login() {
     event.preventDefault();
     if (activeTab === "user") {
       console.log("Verifying Aadhar:", aadhar, "with OTP:", otp);
+      localStorage.setItem('userAadhaar', aadhar);
       navigate("/userdash");
     } else {
       console.log("Verifying Unique ID:", aadhar, "with OTP:", otp);
