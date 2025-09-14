@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace;
+}
+
+.log-nav {
+  height: 60px;
+  background-color: rgb(251, 251, 251);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  padding: 0 15px;
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  height: 50px;
+  width: 100px;
+  background-image: url("../../resources/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.logo-line {
+  height: 50px;
+  width: 160px;
+  background-image: url("../../resources/logo-line.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.user-info {
+  display: flex;
+  gap: 30px;
+  font-size: 1.2rem;
+}
+
+.user-info-link {
+  text-decoration: none;
+  color: rgba(22, 22, 22, 0.841);
+  transition: color 0.3s ease;
+}
+
+.user-info-link:hover {
+  color: #000000;
+}
+
+.user-logout {
+  text-decoration: none;
+  color: rgb(157, 0, 0);
+}
+
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.menu-icon span {
+  width: 25px;
+  height: 3px;
+  background: black;
+  transition: 0.3s ease;
+}
+
+.menu-icon.open span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.menu-icon.open span:nth-child(2) {
+  opacity: 0;
+}
+.menu-icon.open span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+@media (max-width: 768px) {
+  .user-info {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: rgb(251, 251, 251);
+    width: 200px;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+    display: none;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+  .user-info.show {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: flex;
+  }
+}

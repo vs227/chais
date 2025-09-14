@@ -1,0 +1,167 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: "Poppins", sans-serif;
+}
+
+.user-main {
+  height: 95vh;
+  background: linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-card {
+  height: 600px;
+  width: 80%;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.first-comp {
+  width: 100%;
+  height: 70px;
+  background: #f9fafc;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #555;
+  position: relative;
+  padding: 5px 10px;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #000;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: #333;
+  transition: width 0.3s ease;
+}
+
+.nav-link.active {
+  color: #111;
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  width: 100%;
+}
+
+.content-area {
+  padding: 25px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Report Section */
+.report-view h2,
+.profile-view h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+  color: #222;
+  font-weight: 600;
+}
+
+.report-card {
+  background: #fefefe;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.report-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1rem;
+}
+
+.report-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 500;
+  color: #333;
+}
+
+.value {
+  color: #555;
+}
+
+.file-row .report-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.file-row .report-link:hover {
+  text-decoration: underline;
+  color: #004b99;
+}
+
+/* Profile */
+.profile-card {
+  background: #fefefe;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.profile-card p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .user-card {
+    width: 95%;
+    height: auto;
+  }
+
+  .report-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .label {
+    font-size: 0.95rem;
+  }
+
+  .value {
+    font-size: 0.95rem;
+  }
+}
