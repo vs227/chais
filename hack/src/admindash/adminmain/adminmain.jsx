@@ -3,7 +3,7 @@ import "./adminmain.css";
 
 export default function AdminMain() {
   const [activeLink, setActiveLink] = useState("Add Data");
-  const links = ["Add Data", "Delete Data", "Modify", "Visualize"];
+  const links = ["Add Data", "Visualize"];
 
   return (
     <div className="adminmain">
@@ -21,7 +21,6 @@ export default function AdminMain() {
             ))}
           </nav>
 
-          {/* Content Area */}
           <div className="content-area">
             {activeLink === "Add Data" && (
               <form className="health-form">
@@ -31,6 +30,10 @@ export default function AdminMain() {
                   <div className="form-group">
                     <label>Name</label>
                     <input type="text" placeholder="Enter Name" required />
+                  </div>
+                  <div className="form-group">
+                    <label>Aadhar Card</label>
+                    <input type="text" placeholder="Enter Aadhar Number" required />
                   </div>
                   <div className="form-group">
                     <label>Age</label>
@@ -44,6 +47,7 @@ export default function AdminMain() {
                       <option value="female">Female</option>
                     </select>
                   </div>
+                  
                 </div>
 
                 <div className="form-row">
@@ -78,13 +82,7 @@ export default function AdminMain() {
               </form>
             )}
 
-            {activeLink === "Delete Data" && (
-              <div className="placeholder">Delete Data Section</div>
-            )}
-
-            {activeLink === "Modify" && (
-              <div className="placeholder">Modify Data Section</div>
-            )}
+            
 
             {activeLink === "Visualize" && (
               <div className="placeholder">Visualize Data Section</div>
