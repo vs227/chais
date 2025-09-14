@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/SIH/static/css/main.04c4c285.css",
+    "main.js": "/SIH/static/js/main.27188b7a.js",
+    "static/js/453.03e6160a.chunk.js": "/SIH/static/js/453.03e6160a.chunk.js",
+    "static/media/logo.png": "/SIH/static/media/logo.e20433d149c452794c8a.png",
+    "static/media/logo-line.png": "/SIH/static/media/logo-line.16229366d0099c76c478.png",
+    "index.html": "/SIH/index.html",
+    "main.04c4c285.css.map": "/SIH/static/css/main.04c4c285.css.map",
+    "main.27188b7a.js.map": "/SIH/static/js/main.27188b7a.js.map",
+    "453.03e6160a.chunk.js.map": "/SIH/static/js/453.03e6160a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.04c4c285.css",
+    "static/js/main.27188b7a.js"
+  ]
+}
