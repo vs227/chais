@@ -1,62 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
-  background-color: #f5f7fa;
+  background-color: #b7b7b7;
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  color: #222;
+  color: #334155;
 }
 
 .dashboard {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 24px;
 }
 
 .dashboard-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .dashboard-header h1 {
   font-size: 2.2rem;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: #1e293b;
 }
 
 .dashboard-header p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  
-  gap: 32px; 
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
 }
 
-.wide-chart {
-  height: 420px;
-  grid-column: 1 / -1;
+.span-two {
+  grid-column: span 2;
 }
 
 .chart-card {
   background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   padding: 20px;
-  min-height: 280px;
+  min-height: 320px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .chart-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.07);
 }
 
 .chart-card canvas {
@@ -69,18 +69,18 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-size: 1rem;
-  color: #888;
+  font-size: 1.1rem;
+  color: #94a3b8;
 }
 
 .spinner {
   border: 4px solid rgba(0, 0, 0, 0.1);
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border-left-color: #3b82f6;
-  animation: spin 1s ease infinite;
-  margin-bottom: 10px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
 }
 
 @keyframes spin {
@@ -88,20 +88,16 @@ body {
 }
 
 @media (max-width: 768px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+  .span-two {
+    grid-column: span 1;
+  }
   .dashboard-header h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
-
-  .dashboard-header p {
-    font-size: 0.9rem;
-  }
-
-  .wide-chart {
-    height: 320px;
-  }
-
   .chart-card {
-    min-height: 240px;
-    padding: 16px;
+    min-height: 280px;
   }
 }

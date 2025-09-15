@@ -11,7 +11,7 @@ import {
   PointElement,
   LineElement,
 } from 'chart.js';
-import { Bar, Pie, Doughnut } from 'react-chartjs-2';
+import { Bar, Pie, Doughnut, Line } from 'react-chartjs-2';
 import { getComprehensiveAnalytics } from '../utils/realDataService';
 import './DataVisualization.css';
 
@@ -58,24 +58,25 @@ export default function DataVisualization() {
   const generateChartData = () => {
     if (!analyticsData) return {};
 
-    const viridis = [
-      '#440154', '#482878', '#3e4989', '#31688e', '#26828e',
-      '#1f9e89', '#35b779', '#6ece58', '#b5de2b', '#fde725'
+    const plasma = [
+      '#0d0887', '#41049d', '#6a00a8', '#8f0da4', '#b12a90',
+      '#cc4778', '#e16462', '#f2844b', '#fca636', '#f0f921'
     ];
+    const genderColors = { male: '#1f77b4', female: '#e377c2' };
 
-    const genderColors = { male: '#2196f3', female: '#e91e63' };
+    // Disease Prevalence Data (sorted)
+    const diseasePrevalence = Object.entries(analyticsData.diseasePrevalence)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10);
+
+    // Time Trends Data (sorted)
+    const timeTrends = Object.entries(analyticsData.timeTrends)
+      .sort(([a], [b]) => new Date(a) - new Date(b));
 
     return {
-      genderDisease: {
-        labels: Object.keys(analyticsData.genderDisease.male),
-        datasets: [
-          { label: 'Male', data: Object.values(analyticsData.genderDisease.male), backgroundColor: genderColors.male },
-          { label: 'Female', data: Object.values(analyticsData.genderDisease.female), backgroundColor: genderColors.female },
-        ],
-      },
       ageGroup: {
         labels: Object.keys(analyticsData.ageGroups),
-        datasets: [{ data: Object.values(analyticsData.ageGroups), backgroundColor: viridis, borderWidth: 0 }],
+        datasets: [{ data: Object.values(analyticsData.ageGroups), backgroundColor: plasma, borderWidth: 0 }],
       },
       heartDisease: {
         labels: ['Male - Yes', 'Male - No', 'Female - Yes', 'Female - No'],
@@ -86,8 +87,37 @@ export default function DataVisualization() {
             analyticsData.heartDisease.female.yes,
             analyticsData.heartDisease.female.no,
           ],
-          backgroundColor: [genderColors.male, 'rgba(33, 150, 243, 0.5)', genderColors.female, 'rgba(233, 30, 99, 0.5)'],
+          backgroundColor: [genderColors.male, 'rgba(31, 119, 180, 0.4)', genderColors.female, 'rgba(227, 119, 194, 0.4)'],
           borderWidth: 0,
+        }],
+      },
+      diseasePrevalence: {
+        labels: diseasePrevalence.map(([disease]) => disease),
+        datasets: [{
+          label: 'Patient Count',
+          data: diseasePrevalence.map(([, count]) => count),
+          backgroundColor: plasma,
+          borderColor: '#ffffff',
+          borderWidth: 1,
+        }],
+      },
+      bloodPressure: {
+        labels: Object.keys(analyticsData.bloodPressure),
+        datasets: [{
+          data: Object.values(analyticsData.bloodPressure),
+          backgroundColor: plasma,
+          borderWidth: 0,
+        }],
+      },
+      timeTrends: {
+        labels: timeTrends.map(([month]) => month),
+        datasets: [{
+          label: 'Records Added',
+          data: timeTrends.map(([, count]) => count),
+          fill: true,
+          backgroundColor: 'rgba(31, 119, 180, 0.2)',
+          borderColor: '#1f77b4',
+          tension: 0.3,
         }],
       },
     };
@@ -95,12 +125,12 @@ export default function DataVisualization() {
 
   const chartData = generateChartData();
 
-  const renderChart = (data, title, ChartComponent, className = '') => {
+  const renderChart = (data, title, ChartComponent, options = {}, className = '') => {
     if (loading) return <div className={`chart-card loading ${className}`}><div className="spinner"></div><p>Loading...</p></div>;
     if (error) return <div className={`chart-card error ${className}`}><h3>Error</h3><p>{error}</p></div>;
     if (!analyticsData) return <div className={`chart-card no-data ${className}`}><h3>No Data</h3></div>;
 
-    const options = {
+    const defaultOptions = {
       responsive: true,
       maintainAspectRatio: false,
       plugins: {
@@ -108,17 +138,13 @@ export default function DataVisualization() {
           display: true,
           position: 'bottom',
         },
-        title: { display: true, text: title, font: { size: 18, family: "'Inter', sans-serif" }, color: '#111' },
+        title: { display: true, text: title, font: { size: 16, family: "'Inter', sans-serif" }, color: '#333' },
       },
-      scales: (ChartComponent === Bar) ? {
-        x: { grid: { display: false } },
-        y: { grid: { color: '#f0f0f0' } }
-      } : undefined,
     };
 
     return (
       <div className={`chart-card ${className}`}>
-        <ChartComponent data={data} options={options} />
+        <ChartComponent data={data} options={{...defaultOptions, ...options}} />
       </div>
     );
   };
@@ -130,10 +156,25 @@ export default function DataVisualization() {
       </div>
 
       <div className="charts-grid">
-        {renderChart(chartData.genderDisease, 'Disease Analysis by Gender', Bar, 'wide-chart')}
+        {renderChart(chartData.diseasePrevalence, 'Top 10 Disease Prevalence', Bar, {
+          indexAxis: 'y',
+          scales: { x: { grid: { color: '#e0e0e0' } }, y: { grid: { display: false } } },
+          plugins: { legend: { display: false } }
+        }, 'span-two')}
 
-        {renderChart(chartData.ageGroup, 'Age Distribution', Pie)}
-        {renderChart(chartData.heartDisease, 'Heart Disease by Gender', Doughnut)}
+        {renderChart(chartData.ageGroup, 'Age Distribution', Pie, {
+           plugins: { legend: { position: 'left' } }
+        })}
+
+        {renderChart(chartData.bloodPressure, 'Blood Pressure Analysis', Doughnut, {
+           plugins: { legend: { position: 'left' } }
+        })}
+
+        {renderChart(chartData.heartDisease, 'Heart Disease by Gender', Pie, {}, 'span-two')}
+
+        {renderChart(chartData.timeTrends, 'Monthly Health Record Trends', Line, {
+          scales: { x: { grid: { display: false } }, y: { grid: { color: '#e0e0e0' } } }
+        }, 'span-two')}
       </div>
     </div>
   );
