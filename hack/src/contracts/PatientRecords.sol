@@ -2,27 +2,24 @@
 pragma solidity ^0.8.0;
 
 /**
- * @title PatientRecords
- * @dev Smart contract for storing IPFS hashes of patient health records
- * @notice Only stores hashes of patient IDs and IPFS hashes - no sensitive data on-chain
+ * Optimized PatientRecords Contract
+ * 
+ * Optimizations:
+ * 1. Removed redundant recordsExist mapping (check string length instead)
+ * 2. Shorter error messages (saves gas)
+ * 3. Packed storage layout (owner + recordsExist could be packed, but kept simple for clarity)
+ * 4. More efficient existence check
  */
 contract PatientRecords {
-    // Events for tracking operations
     event RecordAdded(bytes32 indexed patientIdHash, string ipfsHash, uint256 timestamp);
     event RecordUpdated(bytes32 indexed patientIdHash, string ipfsHash, uint256 timestamp);
     
-    // Mapping to store IPFS hashes by patient ID hash
     mapping(bytes32 => string) private patientRecords;
     
-    // Mapping to track if a record exists
-    mapping(bytes32 => bool) private recordsExist;
-    
-    // Owner of the contract
     address public owner;
     
-    // Modifier to restrict access to owner
     modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner can perform this action");
+        require(msg.sender == owner, "Only owner");
         _;
     }
     
@@ -31,18 +28,20 @@ contract PatientRecords {
     }
     
     /**
-     * @dev Add or update a patient record
-     * @param patientIdHash Hash of patient ID (Aadhaar) for privacy
-     * @param ipfsHash IPFS hash where the actual data is stored
+     * @dev Add or update patient record
+     * Optimized: Removed redundant recordsExist mapping
      */
     function addOrUpdateRecord(bytes32 patientIdHash, string memory ipfsHash) external onlyOwner {
-        require(patientIdHash != bytes32(0), "Invalid patient ID hash");
-        require(bytes(ipfsHash).length > 0, "Invalid IPFS hash");
+        require(patientIdHash != bytes32(0), "Invalid ID");
+        require(bytes(ipfsHash).length > 0, "Invalid hash");
         
-        bool isUpdate = recordsExist[patientIdHash];
+        // Check if record exists by checking current string length
+        bool isUpdate = bytes(patientRecords[patientIdHash]).length > 0;
+        
+        // Store the record
         patientRecords[patientIdHash] = ipfsHash;
-        recordsExist[patientIdHash] = true;
         
+        // Emit appropriate event
         if (isUpdate) {
             emit RecordUpdated(patientIdHash, ipfsHash, block.timestamp);
         } else {
@@ -52,30 +51,26 @@ contract PatientRecords {
     
     /**
      * @dev Get IPFS hash for a patient record
-     * @param patientIdHash Hash of patient ID
-     * @return IPFS hash if record exists
      */
     function getRecord(bytes32 patientIdHash) external view returns (string memory) {
-        require(recordsExist[patientIdHash], "Record does not exist");
-        return patientRecords[patientIdHash];
+        string memory record = patientRecords[patientIdHash];
+        require(bytes(record).length > 0, "Not found");
+        return record;
     }
     
     /**
      * @dev Check if a patient record exists
-     * @param patientIdHash Hash of patient ID
-     * @return True if record exists, false otherwise
+     * Optimized: Direct check without separate mapping
      */
     function recordExists(bytes32 patientIdHash) external view returns (bool) {
-        return recordsExist[patientIdHash];
+        return bytes(patientRecords[patientIdHash]).length > 0;
     }
     
     /**
-     * @dev Transfer ownership of the contract
-     * @param newOwner Address of the new owner
+     * @dev Transfer contract ownership
      */
     function transferOwnership(address newOwner) external onlyOwner {
-        require(newOwner != address(0), "Invalid new owner address");
+        require(newOwner != address(0), "Invalid owner");
         owner = newOwner;
     }
 }
-

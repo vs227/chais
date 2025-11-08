@@ -26,13 +26,23 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "install-deps": "npm install ethers ipfs-http-client",
-    "setup": "npm run install-deps && echo 'Setup complete! Please follow README_BLOCKCHAIN_SETUP.md for blockchain configuration.'"
+    "setup": "npm run install-deps && echo 'Setup complete! Please follow README_BLOCKCHAIN_SETUP.md for blockchain configuration.'",
+    "check-ipfs": "node scripts/check-ipfs.js",
+    "setup-ipfs": "echo 'IPFS Setup Guide: See README_IPFS_SETUP.md' && echo 'Quick check: npm run check-ipfs'",
+    "deploy-contract": "node deploy-contract.js"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "off",
+      "react-hooks/exhaustive-deps": "warn",
+      "no-console": "off",
+      "no-unused-expressions": "off"
+    }
   },
   "browserslist": {
     "production": [

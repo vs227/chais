@@ -4,6 +4,7 @@ import "./Admindash.css";
 import Adminnav from "./nav/adminnav";
 import Adminmain from "./adminmain/adminmain";
 import DataVisualization from "../components/DataVisualization";
+import ReviewHistoryPage from "./adminmain/ReviewHistoryPage";
 
 export default function Admindash() {
   return (
@@ -15,6 +16,7 @@ export default function Admindash() {
         <Routes>
           <Route path="/" element={<Adminmain />} />
           <Route path="/dashboard" element={<DataVisualization />} />
+          <Route path="/review-history" element={<ReviewHistoryPage />} />
         </Routes>
       </div>
     </div>

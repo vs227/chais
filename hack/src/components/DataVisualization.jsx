@@ -10,6 +10,7 @@ import {
   ArcElement,
   PointElement,
   LineElement,
+  Filler,
 } from 'chart.js';
 import { Bar, Pie, Doughnut, Line } from 'react-chartjs-2';
 import { getComprehensiveAnalytics } from '../utils/realDataService';
@@ -24,7 +25,8 @@ ChartJS.register(
   Legend,
   ArcElement,
   PointElement,
-  LineElement
+  LineElement,
+  Filler
 );
 
 export default function DataVisualization() {
@@ -64,12 +66,10 @@ export default function DataVisualization() {
     ];
     const genderColors = { male: '#1f77b4', female: '#e377c2' };
 
-    // Disease Prevalence Data (sorted)
     const diseasePrevalence = Object.entries(analyticsData.diseasePrevalence)
       .sort(([, a], [, b]) => b - a)
       .slice(0, 10);
 
-    // Time Trends Data (sorted)
     const timeTrends = Object.entries(analyticsData.timeTrends)
       .sort(([a], [b]) => new Date(a) - new Date(b));
 
@@ -106,7 +106,7 @@ export default function DataVisualization() {
         datasets: [{
           data: Object.values(analyticsData.bloodPressure),
           backgroundColor: plasma,
-          borderWidth: 0,
+          borderWidth: 0,  
         }],
       },
       timeTrends: {
@@ -158,7 +158,14 @@ export default function DataVisualization() {
       <div className="charts-grid">
         {renderChart(chartData.diseasePrevalence, 'Top 10 Disease Prevalence', Bar, {
           indexAxis: 'y',
-          scales: { x: { grid: { color: '#e0e0e0' } }, y: { grid: { display: false } } },
+          scales: { 
+            x: { 
+              grid: { color: '#e0e0e0' },
+              min: 0,
+              suggestedMax: 30
+            }, 
+            y: { grid: { display: false } } 
+          },
           plugins: { legend: { display: false } }
         }, 'span-two')}
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./usermain.css";
 import { getRecord, isMetaMaskInstalled } from "../../utils/blockchain";
-import { retrievePatientData, getIPFSGatewayURL } from "../../utils/ipfs-mock";
+import { retrievePatientData, getIPFSGatewayURL } from "../../utils/ipfs";
 
 export default function UserMain() {
   const [activeLink, setActiveLink] = useState("Reports");
@@ -11,7 +11,9 @@ export default function UserMain() {
   const [reportData, setReportData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
-  const [showMetaMaskAlert, setShowMetaMaskAlert] = useState(false);
+  const [showBlockchainAlert, setShowBlockchainAlert] = useState(false);
+  
+  
 
   const handleRetrieveDataForUser = useCallback(async (aadhaarNumber) => {
     if (!aadhaarNumber.trim()) return;
@@ -57,6 +59,10 @@ export default function UserMain() {
     }
   }, [handleRetrieveDataForUser]);
 
+  
+
+  
+
 
   const handleRetrieveData = async () => {
     if (!patientId.trim()) {
@@ -64,8 +70,9 @@ export default function UserMain() {
       return;
     }
 
+    // Check MetaMask connection
     if (!isMetaMaskInstalled()) {
-      setShowMetaMaskAlert(true);
+      setShowBlockchainAlert(true);
       return;
     }
 
@@ -163,13 +170,13 @@ export default function UserMain() {
                   </div>
                 )}
 
-                {showMetaMaskAlert && (
+                {showBlockchainAlert && (
                   <div className="alert alert-warning">
-                    <strong>MetaMask Required:</strong> Please install MetaMask to use this application.
+                    <strong>MetaMask Connection:</strong> Please install MetaMask and connect your wallet
                     <button 
                       type="button" 
                       className="close-btn"
-                      onClick={() => setShowMetaMaskAlert(false)}
+                      onClick={() => setShowBlockchainAlert(false)}
                     >
                       ×
                     </button>
@@ -211,19 +218,47 @@ export default function UserMain() {
                     {reportData.files && reportData.files.length > 0 && (
                       <div className="files-section">
                         <h4>Medical Reports</h4>
-                        {reportData.files.map((file, index) => (
-                          <div key={index} className="file-item">
-                            <span className="file-name">📄 {file.fileName}</span>
-                            <a
-                              href={getIPFSGatewayURL(file.ipfsHash)}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="report-link"
-                            >
-                              View File
-                            </a>
-                          </div>
-                        ))}
+                        {reportData.files.map((file, index) => {
+                          // Ensure we have a valid hash
+                          const fileHash = file.ipfsHash || file.hash || file.cid;
+                          const fileUrl = fileHash ? getIPFSGatewayURL(fileHash) : '';
+                          
+                          console.log('File info:', { 
+                            fileName: file.fileName, 
+                            hash: fileHash, 
+                            url: fileUrl,
+                            fullFile: file 
+                          });
+                          
+                          if (!fileHash || !fileUrl) {
+                            return (
+                              <div key={index} className="file-item">
+                                <span className="file-name">{file.fileName || 'Unknown file'}</span>
+                                <span className="file-error" style={{ color: '#dc3545', fontSize: '0.85rem' }}>
+                                  Hash missing
+                                </span>
+                              </div>
+                            );
+                          }
+                          
+                          return (
+                            <div key={index} className="file-item">
+                              <span className="file-name">{file.fileName}</span>
+                              <a
+                                href={fileUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="report-link"
+                                onClick={(e) => {
+                                  console.log('Opening file:', fileUrl);
+                                  // Let the link open, but log for debugging
+                                }}
+                              >
+                                View File
+                              </a>
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
 
@@ -256,23 +291,53 @@ export default function UserMain() {
             {activeLink === "Profile" && (
               <div className="profile-view">
                 <h2>User Profile</h2>
-                <div className="profile-card">
-                  {reportData ? (
-                    <>
-                      <p><strong>Name:</strong> {reportData.name}</p>
-                      <p><strong>Aadhar:</strong> {reportData.aadhar}</p>
-                      <p><strong>Gender:</strong> {reportData.gender}</p>
-                      <p><strong>Age:</strong> {reportData.age}</p>
+                {reportData ? (
+                  <div className="profile-container">
+                    <div className="profile-header">
+                      <div className="profile-avatar">
+                        {/* Placeholder for profile picture */}
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="12" cy="7" r="3" fill="#4CAF50"/>
+                          <path d="M17 14H7C4.79086 14 3 15.7909 3 18V20H21V18C21 15.7909 19.2091 14 17 14Z" fill="#4CAF50"/>
+                        </svg>
+                      </div>
+                      <h3>{reportData.name}</h3>
+                      <p className="profile-aadhaar">Aadhaar: {reportData.aadhar}</p>
+                    </div>
+
+                    <div className="profile-details-card">
+                      <h4>Personal Information</h4>
+                      <div className="detail-row">
+                        <span className="detail-label">Gender:</span>
+                        <span className="detail-value">{reportData.gender}</span>
+                      </div>
+                      <div className="detail-row">
+                        <span className="detail-label">Age:</span>
+                        <span className="detail-value">{reportData.age}</span>
+                      </div>
                       {reportData.metadata && (
-                        <p><strong>Last Updated:</strong> {new Date(reportData.metadata.timestamp).toLocaleString()}</p>
+                        <div className="detail-row">
+                          <span className="detail-label">Last Updated:</span>
+                          <span className="detail-value">{new Date(reportData.metadata.timestamp).toLocaleString()}</span>
+                        </div>
                       )}
-                    </>
-                  ) : (
-                    <p>No patient data loaded. Please retrieve patient data first.</p>
-                  )}
-                </div>
+                    </div>
+
+                    <div className="profile-actions">
+                      <a
+                        href="#/userdash/history"
+                        className="report-link profile-button"
+                      >
+                        View Full History
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <p>No patient data loaded. Please retrieve patient data first.</p>
+                )}
               </div>
             )}
+            {/* Modal removed in favor of dedicated page */}
           </div>
         </div>
       </div>

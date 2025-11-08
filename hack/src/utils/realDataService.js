@@ -39,7 +39,7 @@ export const getAllPatientRecords = async () => {
           });
         }
       } catch (error) {
-        console.warn('Error processing event:', error);
+        // Error processing event
         // Continue with other records
       }
     }
